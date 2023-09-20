@@ -612,8 +612,10 @@ $mobile-width: 576px;  // 모바일 화면 너비
             }
             ul{
                 display: flex;
-                flex-wrap: wrap;
                 align-items: center;
+                overflow-x: auto;
+                white-space: nowrap;
+                flex-wrap: nowrap;
                 margin: 25px 0;
                 li{
                     padding: 10px 15px;
