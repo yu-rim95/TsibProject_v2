@@ -23,7 +23,17 @@ const router = createRouter({
       path: '/write',
       name: 'write',
       component: () => import('../views/WriteView.vue')
-    }
+    },
+    {
+      path: '/stash',
+      name: 'stash',
+      component: () => import('../views/StashView.vue')
+    },
+    {
+      path: '/postdetail',
+      name: 'postdetail',
+      component: () => import('../views/PostDetailView.vue')
+    },
   ]
 })
 

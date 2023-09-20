@@ -72,14 +72,16 @@
 
 
 
-
-
-<script setup>
-import Header from '@/components/Header.vue'
-</script>
-
-
 <style scoped lang="scss">
 @import '../assets/scss/common.scss';
 </style>
 
+<script>
+import Header from '@/components/Header.vue';
+
+export default {
+  components: {
+    Header,
+  },
+};
+</script>

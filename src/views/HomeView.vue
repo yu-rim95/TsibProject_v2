@@ -3,14 +3,11 @@
   <Header/>
   <div class="home">
     <div class="home-wrap">
-      <div class="h-w-btn">
-        <RouterLink to="/write">글작성</RouterLink>
-      </div>
         <div class="post">
           <ul>
             <li>
-              <RouterLink to="/">
-                  <div class="post-thum"><img src="../assets/imges/main_img01.png" alt=""></div>
+              <RouterLink to="/postdetail">
+                  <div class="post-thum"><img src="../assets/imges/no-img.png" alt=""></div>
                   <div class="post-cont">
                     <p class="pt-tit">글제목</p>
                     <p class="pt-sub">글내용</p>
@@ -29,6 +26,12 @@
 </template>
 
 
-<script setup>
-import Header from '@/components/Header.vue'
+<script>
+import Header from '@/components/Header.vue';
+
+export default {
+  components: {
+    Header,
+  },
+};
 </script>
