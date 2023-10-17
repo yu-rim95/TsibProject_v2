@@ -25,5 +25,8 @@ npm run dev
 ### Compile and Minify for Production
 
 ```sh
-npm run build
+npm run buildn
+npm install create-vite
+npm vite
+npm install vue-router vue3-markdown
 ```
