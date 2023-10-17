@@ -3,7 +3,7 @@
     <Header/>
     <div class="mypage">
       <div class="mp-wrap">
-        <p class="mp-user"><span>yuurim</span> 게시글</p>
+        <p class="mp-user"><span>{{ $route.query.username }}</span> 게시글</p>
         <div>
           <div class="h-w-btn">
               <RouterLink to="/write">글작성</RouterLink>
