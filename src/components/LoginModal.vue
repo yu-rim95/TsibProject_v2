@@ -46,10 +46,11 @@ export default {
       const checkid = localStorage.getItem("username");
       const checkpw = localStorage.getItem("password");
 
-      if(loginpass == "Y"){
+      if(loginpass == "Y" || loginpass == ""){
         if(checkid == this.username && checkpw == this.password) {
           console.log("로그인 성공")
-          this.closeModal()
+          localStorage.setItem("loginpass","Y")
+          location.reload();
         } else {
           this.username = "";
           this.password = "";
@@ -63,7 +64,7 @@ export default {
       if(this.username == "" || this.password == ""){
         alert("회원정보를 적어주세요.")
       } else {
-        if(localStorage.getItem("loginpass") == "Y") {
+        if(localStorage.getItem("loginpass") == "Y" || localStorage.getItem("loginpass") == "") {
           alert("두번 회원가입 안됩니다.")
         } else {
           localStorage.setItem("username",this.username);
@@ -75,7 +76,7 @@ export default {
       }
     },
     findMember(){
-      if(localStorage.getItem("loginpass") == "Y") alert(localStorage.getItem("username") + ":" +localStorage.getItem("password"))
+      if(localStorage.getItem("loginpass") == "Y" || localStorage.getItem("loginpass") == "") alert(localStorage.getItem("username") + ":" +localStorage.getItem("password"))
       else alert("찾을정보가 없습니다. 회원가입 해주세요.")
     },
     closeModal() {

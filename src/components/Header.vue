@@ -6,11 +6,11 @@
             <ul>
                 <li><RouterLink to="/">메인</RouterLink></li>
                 <li><RouterLink to="/about">제작자</RouterLink></li>
-                <li v-show="username != '' && username != null" @click="logout"><a>로그아웃</a></li>
-                <li v-show="username == '' || username == null"><a @click="showLoginModal" :class="{ 'active': isLoginActive }">로그인</a></li>
-                <li v-show="username != '' && username != null"><RouterLink :to="{ name: 'mypage', query: { username } }">마이 페이지</RouterLink></li>
+                <li v-show="loginpass != '' && loginpass != null" @click="logout"><a>로그아웃</a></li>
+                <li v-show="loginpass == '' || loginpass == null"><a @click="showLoginModal" :class="{ 'active': isLoginActive }">로그인</a></li>
+                <li v-show="loginpass != '' && loginpass != null"><RouterLink :to="{ name: 'mypage', query: { username } }">마이 페이지</RouterLink></li>
             </ul>
-          <div v-show="username != '' && username != null" class="h-profile"><span>{{ username }}</span>님 반가워요!</div>
+          <div v-show="loginpass != '' && loginpass != null" class="h-profile"><span>{{ username }}</span>님 반가워요!</div>
         </div>
       </nav>
     </header>
@@ -23,15 +23,16 @@
   export default {
     data() {
       return {
+        loginpass : localStorage.getItem("loginpass") != ''? localStorage.getItem("loginpass"):'',
         username : localStorage.getItem("username") != ''? localStorage.getItem("username"):'',
         isLoginModalVisible: false,
       };
     },
     methods: {
       logout(){
-        alert("현재 로그아웃시 회원탈퇴도 같이 진행됩니다(테스트)")
-        this.username = '';
-        localStorage.clear();
+        this.loginpass = '';
+        localStorage.setItem("loginpass","")
+        // localStorage.clear();
         this.$router.push('/')
       },
       showLoginModal() {
