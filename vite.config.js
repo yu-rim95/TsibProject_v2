@@ -12,5 +12,9 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  build: {
+    outDir: './chungrim/src/main/resources/static',
+    indexPath: "../static/index.html",
   }
 })
