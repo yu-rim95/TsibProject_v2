@@ -9,7 +9,7 @@
           <p>안녕하세요 블로그만드는 블로그에 오신걸 환영합니다</p>
         </div>
         <!-- 로그인 양식 -->
-        <form @submit.prevent="login">
+        <form>
           <div>
             <label for="username">사용자 이름:</label>
             <input type="text" id="username" v-model="username" required>
@@ -18,7 +18,7 @@
             <label for="password">비밀번호:</label>
             <input type="password" id="password" v-model="password" required>
           </div>
-          <button class="login-btn" type="submit">로그인 | </button>
+          <button class="login-btn" @click="login">로그인 | </button>
           <button class="join-btn" @click="joinMember">회원가입 | </button>
           <button class="findmember-btn" @click="findMember">회원정보 찾기</button>
         </form>
@@ -40,40 +40,57 @@ export default {
     }
   },
   methods: {
-    // db, java 연동시 전체적으로 회원가입 로직 변동 예정(임시)
     login(){
       const loginpass = localStorage.getItem("loginpass");
       const checkid = localStorage.getItem("username");
       const checkpw = localStorage.getItem("password");
 
-      if(loginpass == "Y" || loginpass == ""){
-        if(checkid == this.username && checkpw == this.password) {
-          console.log("로그인 성공")
-          localStorage.setItem("loginpass","Y")
-          location.reload();
-        } else {
-          this.username = "";
-          this.password = "";
-          alert("비밀번호 혹은 아이디가 다릅니다.")
-        }
-      } else {
-        alert("회원가입을 해주세요")
-      }
+      this.$axios.post('/memberLogin',{
+        loginpass: loginpass,
+        checkid: checkid,
+        checkpw: checkpw
+      }).then(response => {
+            if(loginpass == "Y" || loginpass == ""){
+              if(checkid == this.username && checkpw == this.password) {
+                console.log("로그인 성공")
+                localStorage.setItem("loginpass","Y")
+                location.reload();
+              } else {
+                this.username = "";
+                this.password = "";
+                alert("비밀번호 혹은 아이디가 다릅니다.")
+              }
+            } else {
+              alert("회원가입을 해주세요")
+            }
+          })
+          .catch(error => {
+            alert("자바 연결시에만 로그인 회원가입 가능")
+            console.error(error);
+          });
     },
     joinMember(){
-      if(this.username == "" || this.password == ""){
-        alert("회원정보를 적어주세요.")
-      } else {
-        if(localStorage.getItem("loginpass") == "Y" || localStorage.getItem("loginpass") == "") {
-          alert("두번 회원가입 안됩니다.")
-        } else {
-          localStorage.setItem("username",this.username);
-          localStorage.setItem("password",this.password);
-          localStorage.setItem("loginpass","Y");
-          alert("회원가입이 완료됐습니다.")
-          location.reload();
-        }
-      }
+      this.$axios.post('/memberJoin')
+          .then(response => {
+            if(this.username == "" || this.password == ""){
+              alert("회원정보를 적어주세요.")
+            } else {
+              if(localStorage.getItem("loginpass") == "Y" || localStorage.getItem("loginpass") == "") {
+                alert("두번 회원가입 안됩니다. 데이터 추가되면 수정예정")
+              } else {
+                localStorage.setItem("username",this.username);
+                localStorage.setItem("password",this.password);
+                localStorage.setItem("loginpass","Y");
+                alert("회원가입이 완료됐습니다.")
+                location.reload();
+              }
+            }
+          })
+          .catch(error => {
+            // 요청 실패 시 처리
+            alert("자바 연결시에만 로그인 회원가입 가능")
+            console.error(error);
+          });
     },
     findMember(){
       if(localStorage.getItem("loginpass") == "Y" || localStorage.getItem("loginpass") == "") alert(localStorage.getItem("username") + ":" +localStorage.getItem("password"))
