@@ -39,7 +39,6 @@ export default {
   },
   methods: {
     ptCreate(Seq) {
-      // 자바 db연결되면 더미 말고 axios 정로 변경예정
       if (Seq == 0) {
         // 세부페이지로 들어가기
         this.$router.push('/postdetail')

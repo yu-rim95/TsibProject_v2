@@ -6,11 +6,11 @@
             <ul>
                 <li><RouterLink to="/">메인</RouterLink></li>
                 <li><RouterLink to="/about">제작자</RouterLink></li>
-                <li v-show="loginpass != '' && loginpass != null" @click="logout"><a>로그아웃</a></li>
-                <li v-show="loginpass == '' || loginpass == null"><a @click="showLoginModal" :class="{ 'active': isLoginActive }">로그인</a></li>
-                <li v-show="loginpass != '' && loginpass != null"><RouterLink :to="{ name: 'mypage', query: { username } }">마이 페이지</RouterLink></li>
+                <li v-show="username !== '유저 정보 없음'" @click="logout"><a>로그아웃</a></li>
+                <li v-show="username === '유저 정보 없음'"><a @click="showLoginModal" :class="{ 'active': isLoginActive }">로그인</a></li>
+                <li v-show="username !== '유저 정보 없음'"><RouterLink :to="{ name: 'mypage', query: { username } }">마이 페이지</RouterLink></li>
             </ul>
-          <div v-show="loginpass != '' && loginpass != null" class="h-profile"><span>{{ username }}</span>님 반가워요!</div>
+          <div class="h-profile"><span>{{ username }}</span>님 반가워요!</div>
         </div>
       </nav>
     </header>
@@ -22,18 +22,20 @@
 
   export default {
     data() {
+      const userData = localStorage.getItem("userData");
       return {
-        loginpass : localStorage.getItem("loginpass") != ''? localStorage.getItem("loginpass"):'',
-        username : localStorage.getItem("username") != ''? localStorage.getItem("username"):'',
+        username: userData ? JSON.parse(userData).checkid : "유저 정보 없음",
         isLoginModalVisible: false,
       };
     },
     methods: {
       logout(){
-        this.loginpass = '';
-        localStorage.setItem("loginpass","")
-        // localStorage.clear();
-        this.$router.push('/')
+        localStorage.clear();
+        if(location.pathname == '/'){
+          location.reload();
+        } else {
+          this.$router.push("/");
+        }
       },
       showLoginModal() {
         this.isLoginModalVisible = true;

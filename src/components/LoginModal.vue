@@ -31,7 +31,7 @@
 <script>
 export default {
   props: {
-    isVisible: Boolean, // 모달의 가시성 상태를 받아올 prop
+    isVisible: Boolean,
   },
   data(){
     return {
@@ -41,60 +41,50 @@ export default {
   },
   methods: {
     login(){
-      const loginpass = localStorage.getItem("loginpass");
-      const checkid = localStorage.getItem("username");
-      const checkpw = localStorage.getItem("password");
-
       this.$axios.post('/memberLogin',{
-        loginpass: loginpass,
-        checkid: checkid,
-        checkpw: checkpw
-      }).then(response => {
-            if(loginpass == "Y" || loginpass == ""){
-              if(checkid == this.username && checkpw == this.password) {
-                console.log("로그인 성공")
-                localStorage.setItem("loginpass","Y")
-                location.reload();
-              } else {
-                this.username = "";
-                this.password = "";
-                alert("비밀번호 혹은 아이디가 다릅니다.")
-              }
+        checkid: this.username,
+        checkpw: this.password
+      })
+          .then(response => {
+            if(response.data == "Y"){
+              const userData = {
+                checkid: this.username,
+                loginpass: 'Y'
+              };
+              localStorage.setItem('userData', JSON.stringify(userData));
+              location.reload();
             } else {
-              alert("회원가입을 해주세요")
+              alert("회원가입 정보가 다릅니다. 자바 확인해보세요")
             }
           })
           .catch(error => {
-            alert("자바 연결시에만 로그인 회원가입 가능")
             console.error(error);
           });
     },
     joinMember(){
-      this.$axios.post('/memberJoin')
-          .then(response => {
-            if(this.username == "" || this.password == ""){
-              alert("회원정보를 적어주세요.")
-            } else {
-              if(localStorage.getItem("loginpass") == "Y" || localStorage.getItem("loginpass") == "") {
-                alert("두번 회원가입 안됩니다. 데이터 추가되면 수정예정")
-              } else {
-                localStorage.setItem("username",this.username);
-                localStorage.setItem("password",this.password);
-                localStorage.setItem("loginpass","Y");
-                alert("회원가입이 완료됐습니다.")
-                location.reload();
-              }
-            }
-          })
-          .catch(error => {
-            // 요청 실패 시 처리
-            alert("자바 연결시에만 로그인 회원가입 가능")
-            console.error(error);
-          });
+      if(this.username == '' || this.password == ''){
+        alert("회원정보 입력해주세요")
+      } else {
+        this.$axios.post('/memberJoin',{
+          checkid: this.username,
+          checkpw: this.password
+        })
+            .then(response => {
+              alert("회원가입이 완료됐습니다.")
+            })
+            .catch(error => {
+              console.error(error);
+            });
+      }
     },
     findMember(){
-      if(localStorage.getItem("loginpass") == "Y" || localStorage.getItem("loginpass") == "") alert(localStorage.getItem("username") + ":" +localStorage.getItem("password"))
-      else alert("찾을정보가 없습니다. 회원가입 해주세요.")
+      this.$axios.get('/memberFind')
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.error(error);
+          });
     },
     closeModal() {
       this.$emit("close"); // 부모 컴포넌트에 이벤트를 발생시켜 모달 닫기

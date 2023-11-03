@@ -6,7 +6,7 @@
         <p class="mp-user"><span>{{ $route.query.username }}</span> 게시글</p>
         <div>
           <div class="h-w-btn">
-              <RouterLink to="/write">글작성</RouterLink>
+            <RouterLink :to="{ name: 'write', query: { username: $route.query.username } }">글작성</RouterLink>
           </div>
           <div class="h-w-btn">
             <RouterLink to="/stash">임시 저장 글</RouterLink>

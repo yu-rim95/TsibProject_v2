@@ -4,10 +4,10 @@
       <div class="write">
         <div class="we-wrap">
           <h1>글 작성</h1>
-          <VMarkdownEditor />
+          <VMarkdownEditor  v-model="markdownText" />
             <div class="thum-cont">
                 <p>썸네일 등록</p>
-                <input type="file" accept="image/*" @change="changeImage" />
+                <input type="file"  ref="imageInput" accept="image/*" @change="changeImage"/>
                 <div class="preview">
                 <img :src="previewImage" v-if="previewImage" />
                 <button v-if="previewImage" @click="deleteImage">썸네일 삭제</button>
@@ -42,6 +42,7 @@
     },
     data() {
       return {
+        markdownText: '',
         previewImage: null,
         tags: [],
         newTag: '',
@@ -62,8 +63,28 @@
         this.previewImage = null;
       },
       savePost() {
-        // 썸네일을 포함하여 글을 저장하는 로직
-        // 썸네일 이미지(this.previewImage)를 다른 글 데이터와 함께 서버로 전송할 수 있습니다.
+        var formData = new FormData();
+
+        if (this.$refs.imageInput.files[0]) {
+          formData.append('previewImage', this.$refs.imageInput.files[0]);
+        } else {
+          formData.append('previewImage', new Blob(), 'empty.jpg');
+        }
+
+        formData.append('markdownText', this.markdownText || '');
+        formData.append('tags', JSON.stringify(this.tags || []));
+
+        this.$axios.post('/savePost', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+            .then(response => {
+              console.log(response)
+            })
+            .catch(error => {
+              console.log(error)
+            });
       },
       saveAsDraft() {
         // 썸네일을 포함하여 임시로 저장하는 로직
