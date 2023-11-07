@@ -29,29 +29,47 @@ export default {
     Header,
   },
   data() {
+    const userData = localStorage.getItem("userData");
     return {
+      username: userData ? JSON.parse(userData).checkid : "유저 정보 없음",
       ptListData:
           [
-            {ptSeq: 0, ptPhoto: "", ptTitle: "글제목", ptSub: "글내용", ptTag: "Spring"},
-            {ptSeq: 1, ptPhoto: "", ptTitle: "최초", ptSub: "더미 클릭해서", ptTag: "새로 만들기"}
+              // 자바단에서 더미데이터 만들어주는중
+            // {ptSeq: 0, ptPhoto: "", ptTitle: "글제목", ptSub: "글내용", ptTag: "Spring"},
+            // {ptSeq: 1, ptPhoto: "", ptTitle: "최초", ptSub: "더미 클릭해서", ptTag: "새로 만들기"}
           ],
     };
   },
+  mounted() {
+    this.homePage();
+  },
   methods: {
+    homePage(){
+      this.$axios.get('/getHomePage')
+          .then(response => {
+            this.ptListData = response.data;
+          })
+          .catch(error => {
+            console.error(error);
+          });
+    },
     ptCreate(Seq) {
-      if (Seq == 0) {
-        // 세부페이지로 들어가기
-        this.$router.push('/postdetail')
-      } else {
-        // 더미 만드는 영역
-        this.ptListData.push({
-          ptSeq: 1,
-          ptPhoto: "",
-          ptTitle: "최초!",
-          ptSub: "더미 클릭해서",
-          ptTag: "새로 만들기"
-        })
-      }
+      if(this.username == "유저 정보 없음") alert("로그인 해주세요")
+      else  this.$router.push('/postdetail')
+
+      // if (Seq == 0) {
+      //   // 세부페이지로 들어가기
+      //   this.$router.push('/postdetail')
+      // } else {
+      //   // 더미 만드는 영역
+      //   this.ptListData.push({
+      //     ptSeq: 1,
+      //     ptPhoto: "",
+      //     ptTitle: "최초!",
+      //     ptSub: "더미 클릭해서",
+      //     ptTag: "새로 만들기"
+      //   })
+      // }
     }
   }
 };
