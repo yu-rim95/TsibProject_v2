@@ -11,16 +11,16 @@
         <!-- 로그인 양식 -->
         <form>
           <div>
-            <label for="username">사용자 이름:</label>
-            <input type="text" id="username" v-model="username" required>
+            <input type="text" id="username" v-model="username" required placeholder="사용자 아이디를 입력 해주세요">
           </div>
           <div>
-            <label for="password">비밀번호:</label>
-            <input type="password" id="password" v-model="password" required>
+            <input type="password" id="password" v-model="password" required placeholder="사용자 비밀번호를 입력 해주세요">
           </div>
-          <button class="login-btn" @click="login">로그인 | </button>
-          <button class="join-btn" @click="joinMember">회원가입 | </button>
-          <button class="findmember-btn" @click="findMember">회원정보 찾기</button>
+          <div>
+            <button class="login-btn" @click="login">로그인</button>
+            <button class="join-btn" @click="joinMember">회원가입 | </button>
+            <button class="findmember-btn" @click="findMember">회원정보 찾기</button>
+          </div>
         </form>
       </div>
       <button class="close-btn" @click="closeModal">닫기</button>
