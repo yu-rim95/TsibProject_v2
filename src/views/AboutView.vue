@@ -4,7 +4,7 @@
     <section class="at-sec1">
       <div class="at-cont">
         <p class="at-tit">우리를 소개합니다</p>
-        <p class="at-sub">평균 나이 28세 최고의 개발자를 꿈꾸는 우리들의 블로그에 오신 걸 환영합니다</p>
+        <p class="at-sub">평균 나이 29세 최고의 개발자를 꿈꾸는 우리들의 블로그에 오신 걸 환영합니다</p>
       </div>
     </section>
 
@@ -19,27 +19,27 @@
           <div class="at-img">이미지</div>
           <p>최유림</p>
           <ul>
-            <li>#너비는301</li>
-            <li>#텍스트는301사이즈넘어가면안보임</li>
-            <li>#폰트사이즈34</li>
+            <li>#개발자 최유림</li>
+            <li>#JavaScript와JQuery중심으로 퍼블 과 프론트개발 모두 가능한 지원자</li>
+            <li>#Java 연결& DB테이블생성</li>
           </ul>
         </div>
         <div class="ab-cont02">
           <div class="at-img">이미지</div>
-          <p>이름</p>
+          <p>이충재</p>
           <ul>
-            <li>#너비는301</li>
-            <li>#텍스트는301사이즈넘어가면안보임</li>
-            <li>#폰트사이즈34</li>
+            <li>#개발자 이충재</li>
+            <li>#JavaScript와 Angular,Vue 중심으로 Web 개발이 가능한 지원자</li>
+            <li>#프론트 개발 & DB연결</li>
           </ul>
         </div>
         <div class="ab-cont03">
           <div class="at-img">이미지</div>
-          <p>이름</p>
+          <p>김영찬</p>
           <ul>
-            <li>#너비는301</li>
-            <li>#텍스트는301사이즈넘어가면안보임</li>
-            <li>#폰트사이즈34</li>
+            <li>#막둥이</li>
+            <li>#텍스트는301사이즈넘어가면안보임 영찬이는 귀여움 가능한 지원자</li>
+            <li>#탈출</li>
           </ul>
         </div>
       </div>
